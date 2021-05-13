@@ -1,9 +1,9 @@
-import './widgets/chart.dart';
+import 'package:flutter/material.dart';
 
 import './widgets/new_txn.dart';
-import './models/txn.dart';
 import './widgets/txn_list.dart';
-import 'package:flutter/material.dart';
+import './widgets/chart.dart';
+import './models/txn.dart';
 
 void main() => runApp(MyApp());
 
@@ -27,8 +27,8 @@ class MyApp extends StatelessWidget {
             textTheme: ThemeData.light().textTheme.copyWith(
                   title: TextStyle(
                     fontFamily: 'OpenSans',
-                    fontWeight: FontWeight.bold,
                     fontSize: 20,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
           )),
@@ -38,8 +38,8 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  //String titleInput;
-  //String amountInput;
+  // String titleInput;
+  // String amountInput;
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -48,17 +48,18 @@ class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _userTransactions = [
     // Transaction(
     //   id: 't1',
-    //   title: 'new shoes',
-    //   amount: 59.37,
+    //   title: 'New Shoes',
+    //   amount: 69.99,
     //   date: DateTime.now(),
     // ),
     // Transaction(
     //   id: 't2',
-    //   title: 'new watch',
-    //   amount: 64.89,
+    //   title: 'Weekly Groceries',
+    //   amount: 16.53,
     //   date: DateTime.now(),
     // ),
   ];
+
   List<Transaction> get _recentTransactions {
     return _userTransactions.where((tx) {
       return tx.date.isAfter(
@@ -71,17 +72,18 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _addNewTransaction(String txTitle, double txAmount) {
     final newTx = Transaction(
-      id: DateTime.now().toString(),
       title: txTitle,
       amount: txAmount,
       date: DateTime.now(),
+      id: DateTime.now().toString(),
     );
+
     setState(() {
       _userTransactions.add(newTx);
     });
   }
 
-  void _startAddNewTxn(BuildContext ctx) {
+  void _startAddNewTransaction(BuildContext ctx) {
     showModalBottomSheet(
       context: ctx,
       builder: (_) {
@@ -98,17 +100,19 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Personal Expenses'),
+        title: Text(
+          'Personal Expenses',
+        ),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.add),
-            onPressed: () => _startAddNewTxn(context),
+            onPressed: () => _startAddNewTransaction(context),
           ),
         ],
       ),
       body: SingleChildScrollView(
         child: Column(
-          //mainAxisAlignment: MainAxisAlignment.start,
+          // mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Chart(_recentTransactions),
@@ -116,10 +120,10 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: () => _startAddNewTxn(context),
+        onPressed: () => _startAddNewTransaction(context),
       ),
     );
   }
