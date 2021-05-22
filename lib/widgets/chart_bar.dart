@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 class ChartBar extends StatelessWidget {
   final String label;
   final double spendingAmount;
   final double spendingPctOfTotal;
 
-  ChartBar(this.label, this.spendingAmount, this.spendingPctOfTotal);
+  const ChartBar(this.label, this.spendingAmount, this.spendingPctOfTotal);
 
   @override
   Widget build(BuildContext context) {
+    // print('build() ChartBar');
     return LayoutBuilder(
       builder: (ctx, constraints) {
         return Column(
@@ -17,7 +17,7 @@ class ChartBar extends StatelessWidget {
             Container(
               height: constraints.maxHeight * 0.15,
               child: FittedBox(
-                child: Text('\₹${spendingAmount.toStringAsFixed(0)}'),
+                child: Text('\$${spendingAmount.toStringAsFixed(0)}'),
               ),
             ),
             SizedBox(
@@ -39,7 +39,7 @@ class ChartBar extends StatelessWidget {
                     heightFactor: spendingPctOfTotal,
                     child: Container(
                       decoration: BoxDecoration(
-                        color: Theme.of(context).accentColor,
+                        color: Theme.of(context).primaryColor,
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),

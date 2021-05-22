@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 //import 'package:flutter/services.dart';
@@ -9,10 +10,9 @@ import './widgets/chart.dart';
 import './models/txn.dart';
 
 void main() {
-  // WidgetsFlutterBinding.ensureInitialized();
   // SystemChrome.setPreferredOrientations([
   //   DeviceOrientation.portraitUp,
-  //   DeviceOrientation.portraitDown,
+  //   DeviceOrientation.portraitUp,
   // ]);
   runApp(MyApp());
 }
@@ -24,7 +24,8 @@ class MyApp extends StatelessWidget {
       title: 'Personal Expenses',
       theme: ThemeData(
           primarySwatch: Colors.lightGreen,
-          accentColor: Colors.deepOrange,
+          accentColor: Colors.orangeAccent,
+          // errorColor: Colors.red,
           fontFamily: 'Quicksand',
           textTheme: ThemeData.light().textTheme.copyWith(
                 title: TextStyle(
@@ -111,14 +112,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _deleteTransaction(String id) {
     setState(() {
-      _userTransactions.removeWhere((tx) {
-        return tx.id == id;
-      });
+      _userTransactions.removeWhere((tx) => tx.id == id);
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    //print('build() MyHomePageState');
     final mediaQuery = MediaQuery.of(context);
     final isLandscape = mediaQuery.orientation == Orientation.landscape;
     final PreferredSizeWidget appBar = Platform.isIOS
@@ -194,7 +194,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       height: (mediaQuery.size.height -
                               appBar.preferredSize.height -
                               mediaQuery.padding.top) *
-                          0.8,
+                          0.7,
                       child: Chart(_recentTransactions),
                     )
                   : txListWidget
@@ -211,7 +211,7 @@ class _MyHomePageState extends State<MyHomePage> {
             appBar: appBar,
             body: pageBody,
             floatingActionButtonLocation:
-                FloatingActionButtonLocation.miniEndFloat,
+                FloatingActionButtonLocation.centerFloat,
             floatingActionButton: Platform.isIOS
                 ? Container()
                 : FloatingActionButton(
